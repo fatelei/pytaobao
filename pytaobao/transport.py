@@ -36,18 +36,12 @@ class Transport(object):
         else:
             resp = requests.get(self.endpoint, data=body)
 
-        import pdb
-        pdb.set_trace()
         status, data = resp.status_code, resp.text
         if status >= 500:
             raise exceptions.TaobaoException(status, data)
         elif 400 <= status < 500:
             raise exceptions.ApiError(status, data)
-        print(data)
-        try:
-            data = json.loads(data.decode('utf8'))
-        except AttributeError:  # py3
-            data = json.loads(data)
+        data = json.loads(data)
 
         if 'error_response' in data:
             errcode, errmsg = data['error_response'].pop('sub_code', 0), data.pop('sub_msg', '')
