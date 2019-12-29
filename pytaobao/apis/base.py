@@ -33,6 +33,9 @@ class TaobaoClient(object):
         params['v'] = '2.0'
         params['format'] = 'json'
         params['timestamp'] = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+
+        sign_code = self.generate_sign_code(params)
+        params['sign'] = sign_code
         return params
 
     def generate_sign_code(self, params: dict):

@@ -73,7 +73,20 @@ class TradeApi(TaobaoClient):
 
         params['method'] = 'taobao.trades.sold.get'
         params = self.wrap_common_field(params)
-
-        sign_code = self.generate_sign_code(params)
-        params['sign'] = sign_code
         return self._transport.perform_request('taobao.trades.sold.get', params, 'POST')
+
+    @required_params('fields', 'tid')
+    def get_trade_fullinfo(self, fields: str, tid: int):
+        """https://open.taobao.com/api.htm?docId=54&docType=2
+
+        :param fields:
+        :param tid:
+        :return:
+        """
+        params = {
+          'fields': fields,
+          'tid': tid,
+          'method': 'taobao.trade.fullinfo.get'
+        }
+        params = self.wrap_common_field(params)
+        return self._transport.perform_request('taobao.trade.fullinfo.get', params, 'POST')

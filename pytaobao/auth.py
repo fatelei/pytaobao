@@ -39,7 +39,6 @@ class Auth(object):
             ary.append(self.app_secret)
 
         sign_value = ''.join(ary).encode('utf8')
-        print(sign_value)
         if self.sign_method == 'md5':
             return hashlib.md5(sign_value).hexdigest().upper()
         elif self.sign_method == 'hmac':
