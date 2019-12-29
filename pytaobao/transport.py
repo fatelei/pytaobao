@@ -4,7 +4,7 @@ import functools
 import json
 import logging
 import datetime
-import urllib3
+import requests
 
 from pytaobao import exceptions
 
@@ -17,7 +17,6 @@ class Transport(object):
         :param str endpoint: Api endpoint
         """
         self.endpoint = endpoint
-        self.http_pool = urllib3.PoolManager()
 
     def perform_request(self, api: str, body: dict, method='GET'):
         """Perform request.
@@ -29,22 +28,22 @@ class Transport(object):
         """
         body['method'] = api
         body['v'] = '2.0'
-        body['timestamp'] = datetime.datetime.strftime('%Y-%m-%d+%H:%M:%S')
-        func = functools.partial(self.http_pool.request, method, self.endpoint)
-        if method == 'GET':
-            resp = func(fields=body)
-        else:
-            resp = func(
-                data=body,
-                headers={'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'}
-            )
+        body['format'] = 'json'
+        body['timestamp'] = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 
-        status, data = resp.status, resp.data
+        if method == 'POST':
+            resp = requests.post(self.endpoint, data=body)
+        else:
+            resp = requests.get(self.endpoint, data=body)
+
+        import pdb
+        pdb.set_trace()
+        status, data = resp.status_code, resp.text
         if status >= 500:
             raise exceptions.TaobaoException(status, data)
         elif 400 <= status < 500:
             raise exceptions.ApiError(status, data)
-
+        print(data)
         try:
             data = json.loads(data.decode('utf8'))
         except AttributeError:  # py3

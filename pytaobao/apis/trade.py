@@ -40,7 +40,8 @@ class TradeApi(TaobaoClient):
         """
         params = {
           'page_no': page_no,
-          'page_size': page_size
+          'page_size': page_size,
+          'fields': fields
         }
         if start_created:
             params['start_created'] = start_created
@@ -70,7 +71,9 @@ class TradeApi(TaobaoClient):
         if buyer_open_id:
             params['buyer_open_id'] = buyer_open_id
 
-        sign_code, sign_type = self.generate_sign_code(params)
-        params['sign_type'] = sign_type
-        params['sign_code'] = sign_code
+        params['method'] = 'taobao.trades.sold.get'
+        params = self.wrap_common_field(params)
+
+        sign_code = self.generate_sign_code(params)
+        params['sign'] = sign_code
         return self._transport.perform_request('taobao.trades.sold.get', params, 'POST')
