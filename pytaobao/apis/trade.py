@@ -90,3 +90,19 @@ class TradeApi(TaobaoClient):
         }
         params = self.wrap_common_field(params)
         return self._transport.perform_request('taobao.trade.fullinfo.get', params, 'POST')
+
+    @required_params('fields', 'tid')
+    def get_trade_info(self, fields: str, tid: int):
+        """https://open.taobao.com/api.htm?docId=47&docType=2
+
+        :param fields:
+        :param tid:
+        :return:
+        """
+        params = {
+          'fields': fields,
+          'tid': tid,
+          'method': 'taobao.trade.get'
+        }
+        params = self.wrap_common_field(params)
+        return self._transport.perform_request('taobao.trade.get', params, 'POST')
