@@ -30,12 +30,14 @@ jobs:
       - run:
           name: install dependencies
           command: |
+            python3 -m venv venv
+            . venv/bin/activate
             pip install pipenv tox
             pipenv install --dev
 
       - save_cache:
           paths:
-            - /tmp
+            - ./venv
           key: v1-dependencies-{{ checksum "Pipfile.lock" }}
 
       # run tests!
@@ -46,6 +48,7 @@ jobs:
       - run:
           name: run tests
           command: |
+            . venv/bin/activate
             tox
 
       - store_artifacts:
