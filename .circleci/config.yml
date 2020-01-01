@@ -52,5 +52,5 @@ jobs:
             tox
 
       - store_artifacts:
-          path: test-reports
+          path: tests/.coverage
           destination: test-reports

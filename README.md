@@ -1,6 +1,8 @@
 # pytaobao
 taobao open [api](https://open.taobao.com/api.htm?docId=285&docType=2) in python
 
+[![CircleCI](https://circleci.com/gh/fatelei/pytaobao.svg?style=svg)](https://circleci.com/gh/fatelei/pytaobao)
+
 ## Usage
 
 ### Using Specific Api Client
