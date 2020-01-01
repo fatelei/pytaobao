@@ -71,12 +71,11 @@ class TradeApi(TaobaoClient):
         if buyer_open_id:
             params['buyer_open_id'] = buyer_open_id
 
-        params['method'] = 'taobao.trades.sold.get'
-        params = self.wrap_common_field(params)
-        return self._transport.perform_request('taobao.trades.sold.get', params, 'POST')
+        return self.perform_request(api='taobao.trades.sold.get',
+                                    params=params)
 
     @required_params('fields', 'tid')
-    def get_trade_fullinfo(self, fields: str, tid: int):
+    def get_trade_full_info(self, fields: str, tid: int):
         """https://open.taobao.com/api.htm?docId=54&docType=2
 
         :param fields:
@@ -88,8 +87,8 @@ class TradeApi(TaobaoClient):
           'tid': tid,
           'method': 'taobao.trade.fullinfo.get'
         }
-        params = self.wrap_common_field(params)
-        return self._transport.perform_request('taobao.trade.fullinfo.get', params, 'POST')
+        return self.perform_request(api='taobao.trades.fullinfo.get',
+                                    params=params)
 
     @required_params('fields', 'tid')
     def get_trade_info(self, fields: str, tid: int):
@@ -104,5 +103,5 @@ class TradeApi(TaobaoClient):
           'tid': tid,
           'method': 'taobao.trade.get'
         }
-        params = self.wrap_common_field(params)
-        return self._transport.perform_request('taobao.trade.get', params, 'POST')
+        return self.perform_request(api='taobao.trade.get',
+                                    params=params)

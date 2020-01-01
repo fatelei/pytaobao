@@ -4,7 +4,7 @@ from setuptools import find_packages, setup
 
 setup(
     name='pytaobao',
-    version='0.0.1',
+    version='1.0.0',
     license='PRIVATE',
     author='fatelei',
     author_email='fatelei@gmail.com',

@@ -18,7 +18,7 @@ class Transport(object):
         """
         self.endpoint = endpoint
 
-    def perform_request(self, api: str, body: dict, method='GET'):
+    def perform_request(self, body: dict, method='GET'):
         """Perform request.
         :param str api: Api path
         :param dict body: Request body
@@ -26,11 +26,6 @@ class Transport(object):
         :return: HTTP response
         :raise: ConnectTimeoutError
         """
-        body['method'] = api
-        body['v'] = '2.0'
-        body['format'] = 'json'
-        body['timestamp'] = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-
         if method == 'POST':
             resp = requests.post(self.endpoint, data=body)
         else:
@@ -45,7 +40,7 @@ class Transport(object):
 
         if 'error_response' in data:
             errcode, errmsg = data['error_response'].pop('sub_code', 0), data.pop('sub_msg', '')
-            logging.debug('Call api {} return ({}, {})'.format(api, errcode, errmsg))
+            logging.debug('Call api {} return ({}, {})'.format(body, errcode, errmsg))
             if errcode != 0:
                 raise exceptions.ApiError(errcode, errmsg)
         return data

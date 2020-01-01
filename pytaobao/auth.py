@@ -12,7 +12,7 @@ import hmac
 class Auth(object):
     """Get access token by crop id and secret."""
 
-    def __init__(self, app_key: str, app_secret: str, sign_method: str, session: str):
+    def __init__(self, app_key: str, app_secret: str, sign_method: str):
         """Init.
         :param str app_key: App key
         :param str app_secret: App secret
@@ -22,7 +22,6 @@ class Auth(object):
         self.app_key = app_key
         self.app_secret = app_secret
         self.sign_method = sign_method
-        self.session = session
 
     def generate_sign_code(self, params: dict) -> str:
         # https://open.taobao.com/doc.htm?spm=a219a.7386653.0.0.7663669aa6JW2E&source=search&docId=101617&docType=1

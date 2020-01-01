@@ -6,6 +6,7 @@ verify_ssl = true
 [dev-packages]
 ipython = "*"
 pytest = "*"
+tox = "*"
 
 [packages]
 pytaobao = {editable = true,path = "."}
@@ -14,3 +15,6 @@ requests = "*"
 
 [requires]
 python_version = "3.7"
+
+[scripts]
+text = 'pipenv run tox'
