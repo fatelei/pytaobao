@@ -84,10 +84,9 @@ class TradeApi(TaobaoClient):
         """
         params = {
           'fields': fields,
-          'tid': tid,
-          'method': 'taobao.trade.fullinfo.get'
+          'tid': tid
         }
-        return self.perform_request(api='taobao.trades.fullinfo.get',
+        return self.perform_request(api='taobao.trade.fullinfo.get',
                                     params=params)
 
     @required_params('fields', 'tid')
@@ -100,8 +99,7 @@ class TradeApi(TaobaoClient):
         """
         params = {
           'fields': fields,
-          'tid': tid,
-          'method': 'taobao.trade.get'
+          'tid': tid
         }
         return self.perform_request(api='taobao.trade.get',
                                     params=params)
