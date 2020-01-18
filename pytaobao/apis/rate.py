@@ -18,7 +18,7 @@ class RateApi(TaobaoClient):
                                end_date: str = None,
                                page_no: int = 1,
                                page_size: int = 40,
-                               use_has_next: bool = True):
+                               use_has_next: str = None):
         """https://open.taobao.com/api.htm?docId=55&docType=2
 
         :param fields:
@@ -56,6 +56,9 @@ class RateApi(TaobaoClient):
 
         if tid:
             params['tid'] = tid
+
+        if use_has_next and use_has_next in ('true', 'false'):
+            params['use_has_next'] = use_has_next
 
         return self.perform_request(api='taobao.traderates.get',
                                     params=params)
